@@ -64,7 +64,7 @@ auto-content/
 ### 1. Clone ou descompacte o projeto
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
+git clone https://github.com/Faysk/auto-content/
 cd auto-content
 ```
 
