@@ -1,6 +1,10 @@
+import os
 import requests
+from dotenv import load_dotenv
 
-COMFY_ENDPOINT = "http://192.168.15.12:8188/prompt"
+load_dotenv()
+
+COMFY_ENDPOINT = os.getenv("COMFY_ENDPOINT", "http://192.168.15.12:8188/prompt")
 
 def enviar_para_comfyui(payload: dict):
     response = requests.post(COMFY_ENDPOINT, json=payload)
