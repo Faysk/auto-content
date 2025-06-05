@@ -58,7 +58,7 @@ auto-content/
 ### 1. Clone ou descompacte o projeto
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
+git clone https://github.com/Faysk/auto-content/
 cd auto-content
 ```
 
@@ -166,3 +166,7 @@ edge-tts>=6.1.10
 ## 📄 Licença
 
 MIT © [Seu Nome ou Projeto]
+
+## My Data
+
+Faysk
