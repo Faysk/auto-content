@@ -1,1 +1,82 @@
+# ===============================
+# ⚙️ Arquivos e pastas do Python
+# ===============================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.srt
+*.tmp
+*.dbg
+*.bak
+
+# ===============================
+# 🔐 Variáveis de ambiente
+# ===============================
+.env
+.env.*
+!.env.example
+
+# ===============================
+# 💾 Dados e Cache Temporário
+# ===============================
+.cache/
+.cache/*
+logs/
+audios/
+cache/
+*.json
+*.csv
+
+# ===============================
+# 🖼️ Geração de Conteúdo
+# ===============================
+image_video/outputs/
+txt_image/outputs/
+text_generator/data/inputs/Feito/
+text_generator/data/inputs/*.bak
+text_generator/data/inputs/*.tmp
+
+# ===============================
+# 🧠 Dados treinados ou futuros
+# ===============================
+models/
+weights/
+*.pt
+*.ckpt
+*.safetensors
+
+# ===============================
+# 🧪 Ambientes Virtuais
+# ===============================
+.venv/
+venv/
+env/
+ENV/
+
+# ===============================
+# 🧰 IDEs e Ferramentas
+# ===============================
+.vscode/
+.idea/
+*.code-workspace
+
+# ===============================
+# 📦 Empacotamento e Distribuição
+# ===============================
+*.egg-info/
+dist/
+build/
+*.tar.gz
+*.whl
+
+# ===============================
+# 📁 Arquivos do sistema (Windows/macOS/Linux)
+# ===============================
+.DS_Store
+Thumbs.db
+desktop.ini
 .env
