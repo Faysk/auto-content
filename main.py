@@ -9,10 +9,12 @@ import traceback # For detailed error logging
 # Ensure these import paths correctly match your project structure.
 from core.logger import Logger
 from core.prompt_generator import generate_prompts_for_text
-from text_generator.text_creator import generate_text, slugify
-from text_to_speech.tts_generator import (generate_audio_and_srt,
-                                          split_text_into_segments)
-from txt_image.core.image_generator import generate_image_with_prompt
+from text_generator.text_creator import gerar_texto as generate_text, slugify
+from text_to_speech.tts_generator import (
+    gerar_audio_e_legenda as generate_audio_and_srt,
+    quebrar_em_linhas_simples as split_text_into_segments,
+)
+from txt_image.core.image_generator import gerar_imagem_com_prompt as generate_image_with_prompt
 
 # === GLOBAL CONFIGURATIONS ===
 # --- Process Control ---
