@@ -1,8 +1,12 @@
+import os
 import requests
 from datetime import datetime
 from core.runner import log
+from dotenv import load_dotenv
 
-COMFY_ENDPOINT = "http://192.168.15.12:8188"
+load_dotenv()
+
+COMFY_ENDPOINT = os.getenv("COMFY_ENDPOINT", "http://192.168.15.12:8188")
 
 def show_status():
     try:
