@@ -1,6 +1,6 @@
 import requests
 from datetime import datetime
-from core.runner import log
+from txt_image.core.runner import log
 
 COMFY_ENDPOINT = "http://192.168.15.12:8188"
 
