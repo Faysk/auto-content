@@ -165,4 +165,4 @@ edge-tts>=6.1.10
 
 ## 📄 Licença
 
-MIT © [Seu Nome ou Projeto]
+MIT © [faysk]
