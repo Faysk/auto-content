@@ -1,11 +1,21 @@
+import os
 import requests
 from datetime import datetime
+from comfyui.utils import slugify, client_id
+from core.runner import load_nodes, log
+from core.monitor import show_status
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from txt_image.comfyui.utils import slugify, client_id
 from txt_image.core.runner import load_nodes, log
 from txt_image.core.monitor import show_status
 
 # === Configurações ===
-COMFY_ENDPOINT = "http://192.168.15.12:8188/prompt"
+COMFY_ENDPOINT = os.getenv(
+    "COMFY_ENDPOINT", "http://192.168.15.12:8188/prompt"
+)
 COMFY_OUTPUT_DIR = "ComfyUI/output"  # ajuste se for diferente no seu setup
 DRY_RUN = False
 

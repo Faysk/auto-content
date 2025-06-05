@@ -1,8 +1,12 @@
+import os
 import subprocess
 from txt_image.core.checkpoint_cycle import advance_checkpoint, get_current_checkpoint
 from txt_image.core.runner import log
 import time
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def fila_esta_vazia(endpoint):
     try:
@@ -22,7 +26,7 @@ def loop_checkpoints():
         gerar_imagens_por_checkpoint(6)
 
         log("⏳ Aguardando fila zerar antes de trocar o checkpoint...")
-        while not fila_esta_vazia("http://192.168.15.12:8188/prompt"):
+        while not fila_esta_vazia(os.getenv("COMFY_ENDPOINT", "http://192.168.15.12:8188/prompt")):
             time.sleep(5)
 
         novo = advance_checkpoint()
