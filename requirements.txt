@@ -6,6 +6,7 @@ python-dotenv>=1.0.0
 
 # 🔊 Voz realista com Microsoft Edge TTS
 edge-tts>=6.1.10
+requests>=2.0
 
 # (Futuro) Se for adicionar voz com ElevenLabs ou vídeo com MoviePy:
 # elevenlabs
