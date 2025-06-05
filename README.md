@@ -14,6 +14,7 @@ Este projeto gera frases, curiosidades e roteiros curtos automaticamente, ideais
 - ✅ Conversão de texto em áudio com voz neural (`edge-tts`)
 - ✅ Estrutura modular pronta para expansão (vídeo, agendamento, redes sociais)
 - ✅ Cálculo de custo por geração com base em tokens
+- ✅ Endpoint do ComfyUI configurável (`COMFY_ENDPOINT`)
 
 ---
 
@@ -21,20 +22,25 @@ Este projeto gera frases, curiosidades e roteiros curtos automaticamente, ideais
 
 ```
 auto-content/
+├── core/                     # Ferramentas compartilhadas
 ├── text_generator/
-│   ├── text_config.py         # Configurações gerais e carregamento do prompt
-│   ├── text_creator.py        # Geração de texto via OpenAI ou fallback
-│   ├── text_gerador_api.py    # Uso da OpenAI API
-│   ├── text_gerador_local.py  # Leitura de frases locais
+│   ├── text_config.py        # Configurações gerais e prompt
+│   ├── text_creator.py       # Geração de texto via OpenAI ou fallback
+│   ├── text_gerador_api.py   # Uso da OpenAI API
+│   ├── text_gerador_local.py # Leitura de frases locais
 │   └── data/
 │       └── inputs/
-│           ├── prompt.txt     # Arquivo de prompt principal
-│           └── frases.json    # Frases locais para fallback
+│           ├── prompt.txt    # Prompt principal
+│           └── frases.json   # Frases para fallback
 ├── text_to_speech/
-│   ├── tts_generator.py       # Converte o texto gerado em áudio
-│   ├── tts_config.py          # Configurações da voz
-│   └── audios/                # Pasta de saída dos .mp3
-└── .env                       # Chave da API e parâmetros
+│   ├── tts_generator.py      # Converte o texto em áudio
+│   ├── tts_config.py         # Configurações da voz
+│   └── audios/               # Saída dos .mp3
+├── txt_image/                # Geração de imagens (ComfyUI)
+├── main.py                   # Executa geração completa
+├── main_test.py              # Exemplos de teste
+├── requirements.txt
+└── .env                      # Chave da API e parâmetros
 ```
 
 ---
@@ -58,7 +64,7 @@ auto-content/
 ### 1. Clone ou descompacte o projeto
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
+git clone https://github.com/Faysk/auto-content/
 cd auto-content
 ```
 
@@ -89,7 +95,10 @@ OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
 OPENAI_MODEL=gpt-3.5-turbo
 TOKEN_PRICE=0.0015
 TEXT_PROMPT=
+COMFY_ENDPOINT=http://127.0.0.1:8188
 ```
+
+`COMFY_ENDPOINT` define o endereço da API do ComfyUI utilizada para gerar imagens.
 
 ---
 
