@@ -23,32 +23,38 @@ def _load_text_content_from_file(file_path: Path, is_optional: bool = False, log
     :raises ValueError: If a mandatory file is empty.
     :raises IOError: If a read error occurs.
     """
-    # Replace print with logger.log, logger.warn, logger.error when integrating your logger
-    print(f"ℹ️ Attempting to load file: {file_path}") # Simulates logger.log
+    if logger:
+        logger.log(f"ℹ️ Attempting to load file: {file_path}")
     if not file_path.exists():
         if is_optional:
-            print(f"⚠️ Optional file not found: {file_path}") # Simulates logger.warn
+            if logger:
+                logger.log(f"⚠️ Optional file not found: {file_path}")
             return None
         else:
-            print(f"❌ CRITICAL ERROR: File not found: {file_path}") # Simulates logger.error
+            if logger:
+                logger.erro(f"CRITICAL ERROR: File not found: {file_path}")
             raise FileNotFoundError(f"File not found: {file_path}")
     try:
         content = file_path.read_text(encoding="utf-8").strip()
         if not content:
             if is_optional:
-                print(f"⚠️ Optional file ({file_path}) found, but it is empty.") # Simulates logger.warn
+                if logger:
+                    logger.log(f"⚠️ Optional file ({file_path}) found, but it is empty.")
                 return None
             else:
-                print(f"❌ CRITICAL ERROR: Mandatory file ({file_path}) is empty.") # Simulates logger.error
+                if logger:
+                    logger.erro(f"CRITICAL ERROR: Mandatory file ({file_path}) is empty.")
                 raise ValueError(f"Mandatory file ({file_path}) is empty.")
         
-        print(f"📄 Content successfully loaded from: {file_path}") # Simulates logger.log
+        if logger:
+            logger.log(f"📄 Content successfully loaded from: {file_path}")
         return content
     except IOError as e:
-        print(f"❌ I/O ERROR reading file {file_path}: {e}") # Simulates logger.error
+        if logger:
+            logger.erro(f"I/O ERROR reading file {file_path}: {e}")
         if is_optional:
             return None
-        raise # Re-raises the error if not optional
+        raise  # Re-raises the error if not optional
 
 
 def _parse_gpt_image_prompt_response(gpt_response_text: str, logger=None) -> dict | None:
@@ -62,7 +68,8 @@ def _parse_gpt_image_prompt_response(gpt_response_text: str, logger=None) -> dic
     :param logger: Optional instance of your logger.
     :return: Dictionary with {"prompt": ..., "negative_prompt": ...} or None if parsing fails.
     """
-    print("ℹ️ Parsing GPT response to extract image prompts...") # Simulates logger.log
+    if logger:
+        logger.log("ℹ️ Parsing GPT response to extract image prompts...")
     
     positive_prompt = None
     negative_prompt_from_gpt = None
@@ -77,7 +84,8 @@ def _parse_gpt_image_prompt_response(gpt_response_text: str, logger=None) -> dic
     )
     if positive_match:
         positive_prompt = positive_match.group(1).strip()
-        print(f"👍 Positive prompt extracted from GPT: '{positive_prompt[:100]}...'") # Simulates logger.log
+        if logger:
+            logger.log(f"👍 Positive prompt extracted from GPT: '{positive_prompt[:100]}...'")
 
     # Try to extract the negative prompt
     negative_match = re.search(
@@ -87,7 +95,8 @@ def _parse_gpt_image_prompt_response(gpt_response_text: str, logger=None) -> dic
     )
     if negative_match:
         negative_prompt_from_gpt = negative_match.group(1).strip()
-        print(f"👎 Negative prompt extracted from GPT: '{negative_prompt_from_gpt[:100]}...'") # Simulates logger.log
+        if logger:
+            logger.log(f"👎 Negative prompt extracted from GPT: '{negative_prompt_from_gpt[:100]}...'")
 
     if positive_prompt:
         return {
@@ -95,7 +104,10 @@ def _parse_gpt_image_prompt_response(gpt_response_text: str, logger=None) -> dic
             "negative_prompt": negative_prompt_from_gpt if negative_prompt_from_gpt else DEFAULT_NEGATIVE_PROMPT
         }
     else:
-        print(f"❌ Failed to extract positive prompt from GPT response. Received response (start): '{gpt_response_text[:200]}...'") # Simulates logger.error
+        if logger:
+            logger.erro(
+                f"Failed to extract positive prompt from GPT response. Received response (start): '{gpt_response_text[:200]}...'"
+            )
         return None
 
 
@@ -108,7 +120,8 @@ def _generate_prompts_simple_method(
     Simple fallback method: Generates a positive prompt by combining the text segment
     with optional base style content. Uses a default negative prompt.
     """
-    print(f"⚙️ Generating image prompt using simple method for: '{text_segment[:70]}...'") # Simulates logger.log
+    if logger:
+        logger.log(f"⚙️ Generating image prompt using simple method for: '{text_segment[:70]}...'")
     
     final_positive_prompt = text_segment.strip()
     if base_style_content:
@@ -157,7 +170,8 @@ def generate_prompts_for_text(
     # Ex: if logger: logger.log("...") else: print("...")
 
     if not text_segment or not text_segment.strip():
-        print("❌ ERROR: Text segment provided to 'generate_prompts_for_text' is empty or whitespace.") # Simulates logger.error
+        if logger:
+            logger.erro("ERROR: Text segment provided to 'generate_prompts_for_text' is empty or whitespace.")
         # Return defaults to avoid breaking the main flow, but clearly indicate failure.
         return {"prompt": "Text segment was empty.", "negative_prompt": DEFAULT_NEGATIVE_PROMPT}
 
@@ -165,11 +179,13 @@ def generate_prompts_for_text(
 
     if use_gpt_for_image_prompts:
         if not gpt_api_function:
-            print("⚠️ WARNING: GPT image prompt generation was requested, but no 'gpt_api_function' was provided.") # Simulates logger.warn
-            print("Falling back to the simple prompt generation method.")
+            if logger:
+                logger.log("⚠️ WARNING: GPT image prompt generation was requested, but no 'gpt_api_function' was provided.")
+                logger.log("Falling back to the simple prompt generation method.")
             return _generate_prompts_simple_method(cleaned_text_segment, base_prompt_content, logger)
 
-        print(f"🧠 Attempting to generate image prompts with GPT for segment: '{cleaned_text_segment[:70]}...'") # Simulates logger.log
+        if logger:
+            logger.log(f"🧠 Attempting to generate image prompts with GPT for segment: '{cleaned_text_segment[:70]}...'")
         
         # ---- CONSTRUCTION OF THE META-PROMPT FOR GPT ----
         # This is an example. You can refine this meta-prompt extensively!
@@ -205,31 +221,37 @@ Please format your response EXACTLY as follows, with no additional introductory 
         # ---- END OF META-PROMPT CONSTRUCTION ----
 
         try:
-            print(f"✉️ Sending request to GPT API (to generate image prompts)...") # Simulates logger.log
+            if logger:
+                logger.log("✉️ Sending request to GPT API (to generate image prompts)...")
             # This is the call to your function that interacts with the GPT API
             raw_gpt_response = gpt_api_function(meta_prompt_instructions)
             
             if not raw_gpt_response or not raw_gpt_response.strip():
-                print("❌ ERROR: GPT API returned an empty or invalid response when trying to generate image prompts.") # Simulates logger.error
+                if logger:
+                    logger.erro("ERROR: GPT API returned an empty or invalid response when trying to generate image prompts.")
                 raise ValueError("Empty response from GPT API for image prompts.")
 
             parsed_prompts = _parse_gpt_image_prompt_response(raw_gpt_response, logger)
 
             if parsed_prompts and "prompt" in parsed_prompts:
-                print("✅ Image prompts (positive and negative) successfully generated via GPT.") # Simulates logger.sucesso
+                if logger:
+                    logger.sucesso("Image prompts (positive and negative) successfully generated via GPT.")
                 return parsed_prompts
             else:
-                print("❌ ERROR: Failed to parse prompts from GPT response. The response might not be in the expected format.") # Simulates logger.error
-                print("⚠️  Falling back to the simple prompt generation method due to GPT parsing error.") # Simulates logger.warn
+                if logger:
+                    logger.erro("Failed to parse prompts from GPT response. The response might not be in the expected format.")
+                    logger.log("⚠️  Falling back to the simple prompt generation method due to GPT parsing error.")
                 return _generate_prompts_simple_method(cleaned_text_segment, base_prompt_content, logger)
 
         except Exception as e_gpt_call:
-            print(f"❌ ERROR during GPT API call for image prompts or response processing: {e_gpt_call}") # Simulates logger.error
-            print("⚠️  Falling back to the simple prompt generation method due to GPT failure.") # Simulates logger.warn
+            if logger:
+                logger.erro(f"ERROR during GPT API call for image prompts or response processing: {e_gpt_call}")
+                logger.log("⚠️  Falling back to the simple prompt generation method due to GPT failure.")
             return _generate_prompts_simple_method(cleaned_text_segment, base_prompt_content, logger)
     else:
         # GPT not requested, use the simple method
-        print("⚙️  GPT prompt generation disabled. Using simple method.") # Simulates logger.log
+        if logger:
+            logger.log("⚙️  GPT prompt generation disabled. Using simple method.")
         return _generate_prompts_simple_method(cleaned_text_segment, base_prompt_content, logger)
 
 # The old function `carregar_arquivo_prompt` has been replaced by `_load_text_content_from_file`

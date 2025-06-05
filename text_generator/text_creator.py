@@ -18,6 +18,11 @@ def gerar_texto(prompt: str = PROMPT_PADRAO) -> str:
         print("🔄 Usando frase local como fallback...")
         return gerar_texto_local()
 
+
+def generate_text(prompt: str = PROMPT_PADRAO) -> str:
+    """Alias para :func:`gerar_texto`."""
+    return gerar_texto(prompt)
+
 def slugify(text: str, max_length: int = 50) -> str:
     """
     Converte um texto em um nome de arquivo seguro (slug).
