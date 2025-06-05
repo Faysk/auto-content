@@ -3,6 +3,7 @@ import requests
 from datetime import datetime
 from core.runner import log
 from dotenv import load_dotenv
+from txt_image.core.runner import log
 
 load_dotenv()
 

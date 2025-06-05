@@ -1,7 +1,7 @@
 import os
 import subprocess
-from core.checkpoint_cycle import advance_checkpoint, get_current_checkpoint
-from core.runner import log
+from txt_image.core.checkpoint_cycle import advance_checkpoint, get_current_checkpoint
+from txt_image.core.runner import log
 import time
 import requests
 from dotenv import load_dotenv
