@@ -1,9 +1,9 @@
 # text_generator/text_creator.py
 
 import re
-from text_config import PROMPT_PADRAO
-from text_gerador_api import gerar_texto_ia
-from text_gerador_local import gerar_texto_local
+from .text_config import PROMPT_PADRAO
+from .text_gerador_api import gerar_texto_ia
+from .text_gerador_local import gerar_texto_local
 
 def gerar_texto(prompt: str = PROMPT_PADRAO) -> str:
     """

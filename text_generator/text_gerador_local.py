@@ -2,7 +2,7 @@
 
 import json
 import random
-from text_config import LOCAL_FRASES_PATH
+from .text_config import LOCAL_FRASES_PATH
 
 def gerar_texto_local() -> str:
     """

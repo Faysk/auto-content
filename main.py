@@ -1,4 +1,3 @@
-import os
 import asyncio
 from pathlib import Path
 from datetime import datetime
@@ -8,11 +7,25 @@ from text_generator.text_creator import gerar_texto, slugify
 from text_to_speech.tts_generator import gerar_audio_e_legenda, quebrar_em_linhas_simples
 
 # 🎯 Prompts e vídeo
-from video_generator.prompt_generator import gerar_prompts_para_trecho
-from video_generator.comfy_generator import gerar_video_para_trecho
+try:
+    from video_generator.prompt_generator import gerar_prompts_para_trecho
+    from video_generator.comfy_generator import gerar_video_para_trecho
+    from video_generator.logger import iniciar_logger
+    VIDEO_ENABLED = True
+except ModuleNotFoundError:
+    VIDEO_ENABLED = False
 
-# 📝 Logger
-from video_generator.logger import iniciar_logger
+    def gerar_prompts_para_trecho(trecho: str) -> dict:
+        return {"prompt": trecho}
+
+    def gerar_video_para_trecho(**kwargs) -> None:
+        print("📽️ Módulo de vídeo ausente. Pulando geração de vídeo.")
+
+    def iniciar_logger(nome: str):
+        def log(msg: str) -> None:
+            print(msg)
+
+        return log
 
 # 📁 Diretórios principais
 base_dir = Path(__file__).resolve().parent
