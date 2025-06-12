@@ -13,7 +13,9 @@
 # VOICE = "en-US-ChristopherNeural" # Masculino, maduro e confiante
 # VOICE = "en-US-RogerNeural"     # Masculino, formal
 # VOICE = "en-US-TonyNeural"      # Masculino, descontraído
-VOICE = "en-US-JennyNeural"     # Feminina, natural, ótima para narração
+import os
+
+VOICE = os.getenv("TTS_VOICE", "en-US-JennyNeural")  # Feminina, natural, ótima para narração
 # VOICE = "en-US-AriaNeural"      # Feminina, expressiva e envolvente
 # VOICE = "en-US-AnaNeural"       # Feminina, leve sotaque latino
 # VOICE = "en-US-AmberNeural"     # Feminina, jovem e vibrante
@@ -49,7 +51,8 @@ VOICE = "en-US-JennyNeural"     # Feminina, natural, ótima para narração
 # VOICE = "en-SG-LunaNeural"      # Feminina, Cingapura
 
 # 🔧 Configurações adicionais
-RATE = "+0%"                     # Velocidade (ex: -10%, +20%)
-OUTPUT_DIR = "audios/"           # Pasta de saída dos áudios
+RATE = os.getenv("TTS_RATE", "+0%")          # Velocidade (ex: -10%, +20%)
+OUTPUT_DIR = os.getenv("TTS_OUTPUT_DIR", "audios/")  # Pasta de saída dos áudios
 # VOLUME = "+0%"                 # Volume (ex: -10%, +20%)
 # SAMPLE_RATE = 24000           # Taxa de amostragem (ex: 16000, 24000, 48000)
+
