@@ -1,6 +1,6 @@
 # text_gerador_api.py
 
-from text_config import client, OPENAI_MODEL, TOKEN_PRICE
+from .text_config import client, OPENAI_MODEL, TOKEN_PRICE
 
 def gerar_texto_ia(prompt: str) -> str:
     """

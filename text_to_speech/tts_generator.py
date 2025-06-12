@@ -1,17 +1,14 @@
-import sys
 import os
 import re
 import asyncio
-from pathlib import Path
 import edge_tts
 import unicodedata
 
 # 🔧 Configurações
-from tts_config import VOICE, RATE, OUTPUT_DIR
+from .tts_config import VOICE, RATE, OUTPUT_DIR
 
 # 🔁 Importa gerador de texto e utilitários
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'text_generator')))
-from text_creator import gerar_texto, slugify
+from text_generator.text_creator import gerar_texto, slugify
 
 def limpar_texto_para_tts(texto: str) -> str:
     """
