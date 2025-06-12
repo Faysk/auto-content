@@ -1,0 +1,13 @@
+# 🔐 Cliente oficial da OpenAI
+openai>=1.0.0
+
+# 🌱 Para carregar variáveis do .env com segurança
+python-dotenv>=1.0.0
+
+# 🔊 Voz realista com Microsoft Edge TTS
+edge-tts>=6.1.10
+
+# (Futuro) Se for adicionar voz com ElevenLabs ou vídeo com MoviePy:
+# elevenlabs
+# moviepy
+# ffmpeg-python
