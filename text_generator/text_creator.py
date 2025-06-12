@@ -1,6 +1,8 @@
 # text_generator/text_creator.py
 
 import re
+import unicodedata
+
 from .text_config import PROMPT_PADRAO
 from .text_gerador_api import gerar_texto_ia
 from .text_gerador_local import gerar_texto_local
@@ -19,13 +21,11 @@ def gerar_texto(prompt: str = PROMPT_PADRAO) -> str:
         return gerar_texto_local()
 
 def slugify(text: str, max_length: int = 50) -> str:
-    """
-    Converte um texto em um nome de arquivo seguro (slug).
-    Remove acentos, caracteres especiais e limita tamanho.
-    """
+    """Gera um nome de arquivo seguro a partir do texto fornecido."""
     text = text.strip().lower()
-    text = re.sub(r"[^\w\s-]", "", text)        # Remove caracteres especiais
-    text = re.sub(r"[\s_-]+", "_", text)        # Espaços e hífens → underscore
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    text = re.sub(r"[^\w\s-]", "", text)
+    text = re.sub(r"[\s_-]+", "_", text).strip("_")
     return text[:max_length]
 
 # Teste isolado

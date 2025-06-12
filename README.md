@@ -89,6 +89,9 @@ OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
 OPENAI_MODEL=gpt-3.5-turbo
 TOKEN_PRICE=0.0015
 TEXT_PROMPT=
+TTS_VOICE=en-US-JennyNeural
+TTS_RATE=+0%
+TTS_OUTPUT_DIR=audios/
 ```
 
 ---
@@ -115,9 +118,11 @@ python text_generator/text_creator.py
 ### Configuração (`tts_config.py`):
 
 ```python
-VOICE = "pt-BR-AntonioNeural"
-RATE = "+0%"
-OUTPUT_DIR = "audios/"
+import os
+
+VOICE = os.getenv("TTS_VOICE", "pt-BR-AntonioNeural")
+RATE = os.getenv("TTS_RATE", "+0%")
+OUTPUT_DIR = os.getenv("TTS_OUTPUT_DIR", "audios/")
 ```
 
 > Outras vozes disponíveis: `pt-BR-BrendaNeural`, `pt-BR-AntonioNeural`
