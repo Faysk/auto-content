@@ -2,7 +2,7 @@
 
 Este projeto gera frases, curiosidades e roteiros curtos automaticamente, ideais para vídeos verticais (TikTok, Reels, Shorts, etc.).
 
-💡 Utiliza a OpenAI (GPT) para geração de texto com fallback local, conversão em áudio com voz neural e estrutura modular preparada para renderização de vídeo e publicação automática.
+💡 Utiliza a OpenAI (GPT) para geração de texto com fallback local, conversão em áudio com voz neural e estrutura modular simples, pronta para expansão futura.
 
 ---
 
@@ -12,7 +12,7 @@ Este projeto gera frases, curiosidades e roteiros curtos automaticamente, ideais
 - ✅ Fallback automático para frases locais (`frases.json`)
 - ✅ Prompt dinâmico via `.env` ou arquivos `.txt`
 - ✅ Conversão de texto em áudio com voz neural (`edge-tts`)
-- ✅ Estrutura modular pronta para expansão (vídeo, agendamento, redes sociais)
+- ✅ Estrutura modular pronta para expansão (agendamento, redes sociais, etc.)
 - ✅ Cálculo de custo por geração com base em tokens
 
 ---
@@ -156,7 +156,6 @@ edge-tts>=6.1.10
 
 ## 🧱 Próximas Etapas (Planejadas)
 
-- 🎬 Renderização automática de vídeo (`moviepy`)
 - 🧠 Legenda embutida e efeitos sonoros
 - 📲 Publicação automática em TikTok, YouTube Shorts e Instagram Reels
 - 🗓️ Agendamento com n8n ou cron
